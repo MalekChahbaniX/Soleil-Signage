@@ -1,0 +1,32 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "os8r4FVW440HA3cR4SIra"
+uri = "file://artifacts/soleil-pub/public/images/hero.png"
+type = "image"
+title = "Luxury dark print studio hero"
+
+[[generated]]
+id = "SOyXY_jh6cGqfyhkGLGxK"
+uri = "file://artifacts/soleil-pub/public/images/enseignes.png"
+type = "image"
+title = "Luxurious glowing gold sign"
+
+[[generated]]
+id = "FyFPOF7hsPNV9xj_RKt3S"
+uri = "file://artifacts/soleil-pub/public/images/cartes.png"
+type = "image"
+title = "Gold foil invitation card"
+
+[[generated]]
+id = "5AEL8DiyZU_fAGwZFD73s"
+uri = "file://artifacts/soleil-pub/public/images/impression.png"
+type = "image"
+title = "High-end digital printing"
+
+[[generated]]
+id = "tDMH1XBkpgPVo1tH4h7b3"
+uri = "file://artifacts/soleil-pub/public/images/tampons.png"
+type = "image"
+title = "Bespoke luxury custom stamp"
