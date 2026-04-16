@@ -60,10 +60,7 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground overflow-hidden">
       
       {/* Language Switcher in Header */}
-      <div className="fixed top-6 right-6 z-50 ltr-only">
-        <LanguageSwitcher />
-      </div>
-      <div className="fixed top-6 left-6 z-50 rtl-only">
+      <div className="fixed top-6 right-6 z-50">
         <LanguageSwitcher />
       </div>
 
