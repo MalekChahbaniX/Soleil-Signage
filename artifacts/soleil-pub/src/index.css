@@ -132,3 +132,35 @@
     @apply font-serif font-normal;
   }
 }
+
+/* RTL Support */
+html.rtl {
+  direction: rtl;
+}
+
+html.rtl .ltr-only {
+  display: none;
+}
+
+html:not(.rtl) .rtl-only {
+  display: none;
+}
+
+/* Utility classes for RTL-aware margins and padding */
+html.rtl .ml-auto {
+  margin-right: auto;
+  margin-left: 0;
+}
+
+html.rtl .mr-auto {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+html.rtl .text-left {
+  text-align: right;
+}
+
+html.rtl .text-right {
+  text-align: left;
+}

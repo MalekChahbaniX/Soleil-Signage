@@ -1,0 +1,65 @@
+{
+  "common": {
+    "language": "Langue",
+    "french": "Français",
+    "arabic": "العربية"
+  },
+  "hero": {
+    "badge": "Studio d'Exception",
+    "title": "L'Art de l'Impression",
+    "titleEmphasis": "l'Impression",
+    "subtitle": "Imprimerie Digitale & Signalétique",
+    "description": "De l'enseigne monumentale au détail d'une dorure, nous façonnons l'identité visuelle des marques exigeantes en Tunisie."
+  },
+  "services": {
+    "title": "Nos Services",
+    "cta": "Explorer nos services",
+    "digitalPrinting": {
+      "title": "Impression Numérique",
+      "description": "Précision absolue et couleurs vibrantes pour tous vos supports de communication.",
+      "message": "Je veux commander une impression numérique"
+    },
+    "luminousSigns": {
+      "title": "Enseignes Lumineuses",
+      "description": "Illuminez votre marque avec des enseignes sur-mesure d'une qualité exceptionnelle.",
+      "message": "Je veux une enseigne lumineuse"
+    },
+    "stamps": {
+      "title": "Tampons",
+      "description": "Votre signature officielle, conçue avec des matériaux nobles et durables.",
+      "message": "Je veux commander un tampon"
+    },
+    "invitations": {
+      "title": "Cartes d'invitation",
+      "description": "Le raffinement pour vos moments uniques. Dorure, gaufrage et papiers de prestige.",
+      "message": "Je veux des cartes d'invitation"
+    },
+    "stickers": {
+      "title": "Stickers",
+      "description": "Adhésifs haute résistance aux finitions impeccables pour affirmer votre identité.",
+      "message": "Je veux commander des stickers"
+    }
+  },
+  "testimonials": {
+    "title": "Ce que disent nos clients",
+    "testimonials": [
+      {
+        "name": "Mohamed Ould Ahmed",
+        "text": "Un travail d'une qualité rare en Tunisie. L'enseigne lumineuse de notre agence est une véritable œuvre d'art. Précision et respect des délais absolus."
+      },
+      {
+        "name": "Fatimetou Mint Brahim",
+        "text": "Nos cartes d'invitation pour le mariage étaient sublimes. Le papier, la dorure... tout respirait le luxe. Merci à l'équipe de Soleil Pub."
+      },
+      {
+        "name": "Sidi Ahmed Ould Maatalla",
+        "text": "Des impressions numériques grand format d'une netteté incroyable. C'est le partenaire idéal pour toute entreprise exigeante."
+      }
+    ]
+  },
+  "cta": {
+    "contactUs": "Nous contacter",
+    "getQuote": "Demander un devis",
+    "learnMore": "En savoir plus"
+  }
+}
