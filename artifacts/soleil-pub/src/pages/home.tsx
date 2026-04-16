@@ -50,7 +50,7 @@ const services = [
 const testimonials = [
   {
     name: "Mohamed Ould Ahmed",
-    text: "Un travail d'une qualité rare en Mauritanie. L'enseigne lumineuse de notre agence est une véritable œuvre d'art. Précision et respect des délais absolus."
+    text: "Un travail d'une qualité rare en Tunisie. L'enseigne lumineuse de notre agence est une véritable œuvre d'art. Précision et respect des délais absolus."
   },
   {
     name: "Fatimetou Mint Brahim",
@@ -97,7 +97,7 @@ export default function Home() {
 
           <AnimatedSection delay={0.4}>
             <p className="max-w-2xl text-lg md:text-xl text-muted-foreground mb-12 font-light leading-relaxed">
-              De l'enseigne monumentale au détail d'une dorure, nous façonnons l'identité visuelle des marques exigeantes en Mauritanie.
+              De l'enseigne monumentale au détail d'une dorure, nous façonnons l'identité visuelle des marques exigeantes en Tunisie.
             </p>
           </AnimatedSection>
 
@@ -232,7 +232,6 @@ export default function Home() {
             
             <div className="pt-16 border-t border-border/50 flex flex-col md:flex-row justify-between items-center gap-4 text-muted-foreground text-sm">
               <p>© {new Date().getFullYear()} Soleil Pub | شمس الإشهار. Tous droits réservés.</p>
-              <p>Mauritanie</p>
             </div>
           </AnimatedSection>
         </div>

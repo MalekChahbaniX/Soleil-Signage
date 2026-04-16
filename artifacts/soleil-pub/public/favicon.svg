@@ -1,3 +1,17 @@
 <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="180" height="180" rx="36" fill="#FF3C00"/>
+<defs>
+<linearGradient id="modernGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" style="stop-color:#FF3C00;stop-opacity:1" />
+<stop offset="100%" style="stop-color:#FFD700;stop-opacity:1" />
+</linearGradient>
+</defs>
+<!-- Background Circle -->
+<circle cx="90" cy="90" r="85" fill="url(#modernGradient)"/>
+
+<!-- Text SP -->
+<text x="70" y="110" font-family="Segoe UI, Arial, sans-serif" font-size="85" font-weight="700" fill="white" text-anchor="middle" dominant-baseline="middle">S</text>
+<text x="120" y="110" font-family="Segoe UI, Arial, sans-serif" font-size="85" font-weight="700" fill="white" text-anchor="middle" dominant-baseline="middle">P</text>
+
+<!-- Decorative accent dot -->
+<circle cx="145" cy="40" r="6" fill="white" opacity="0.8"/>
 </svg>
