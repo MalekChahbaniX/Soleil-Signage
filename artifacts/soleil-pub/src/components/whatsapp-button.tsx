@@ -12,7 +12,7 @@ const links = [
     testId: "button-whatsapp-floating"
   },
   {
-    href: "https://www.facebook.com/soleilpub",
+    href: "https://www.facebook.com/profile.php?id=61572933366822",
     icon: <SiFacebook className="h-5 w-5" />,
     label: "Facebook",
     color: "#1877F2",
