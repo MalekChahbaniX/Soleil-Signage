@@ -15,7 +15,8 @@ const initializeDirection = () => {
   const dir = lng === 'ar' ? 'rtl' : 'ltr';
   document.documentElement.dir = dir;
   document.documentElement.lang = lng;
-  document.documentElement.classList.add('dark');
+  const theme = localStorage.getItem('soleil-theme') || 'dark';
+  document.documentElement.classList.toggle('dark', theme === 'dark');
   document.documentElement.classList.add(dir);
 };
 
@@ -31,11 +32,6 @@ function Router() {
 }
 
 function App() {
-  // Force dark mode on document body
-  if (typeof document !== 'undefined') {
-    document.documentElement.classList.add('dark');
-  }
-
   return (
     <I18nextProvider i18n={i18n}>
       <QueryClientProvider client={queryClient}>

@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Phone, Star, Mail } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { ArrowLeft, ArrowRight, Check, FileUp, Mail, Moon, Phone, Send, Star, Sun, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { AnimatedSection } from "@/components/animated-section";
@@ -8,6 +8,12 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 
 export default function Home() {
   const { t, i18n } = useTranslation();
+  const isArabic = i18n.language === 'ar';
+  const [quoteOpen, setQuoteOpen] = useState(false);
+  const [quoteStep, setQuoteStep] = useState(1);
+  const [quoteData, setQuoteData] = useState({ support: 'signs', width: '100', height: '50', quantity: '1', finish: '', name: '', phone: '', email: '', file: '' });
+  const [portfolioFilter, setPortfolioFilter] = useState('all');
+  const [isDark, setIsDark] = useState(() => localStorage.getItem('soleil-theme') !== 'light');
   
   const services = [
     {
@@ -48,6 +54,28 @@ export default function Home() {
   ];
 
   const testimonials = t("testimonials.testimonials", { returnObjects: true });
+  const portfolio = [
+    { image: '/images/enseignes.png', category: 'signs', title: isArabic ? 'واجهة مضيئة مخصصة' : 'Enseigne lumineuse sur mesure' },
+    { image: '/images/impression.png', category: 'print', title: isArabic ? 'طباعة احترافية' : 'Impression grand format' },
+    { image: '/images/cartes.png', category: 'cards', title: isArabic ? 'بطاقات فاخرة' : 'Cartes avec dorure' },
+    { image: '/images/tampons.png', category: 'stickers', title: isArabic ? 'هوية لاصقة' : 'Stickers de marque' },
+  ];
+  const filteredPortfolio = portfolioFilter === 'all' ? portfolio : portfolio.filter((item) => item.category === portfolioFilter);
+  const estimate = Math.max(180, Math.round(Number(quoteData.width || 100) * Number(quoteData.height || 50) * Number(quoteData.quantity || 1) * (quoteData.support === 'signs' ? 0.12 : 0.025)));
+
+  const toggleTheme = () => {
+    const next = !isDark;
+    setIsDark(next);
+    document.documentElement.classList.toggle('dark', next);
+    localStorage.setItem('soleil-theme', next ? 'dark' : 'light');
+  };
+
+  const updateQuote = (key: string, value: string) => setQuoteData((current) => ({ ...current, [key]: value }));
+  const sendQuote = (channel: 'whatsapp' | 'email') => {
+    const message = `${isArabic ? 'طلب عرض سعر Soleil Pub' : 'Demande de devis Soleil Pub'}\n${quoteData.support} - ${quoteData.width}x${quoteData.height} cm - ${quoteData.quantity} ${isArabic ? 'unités' : 'unités'}\n${quoteData.name} - ${quoteData.phone}\n${isArabic ? 'Estimation' : 'Estimation'}: ${estimate}-${estimate * 2} TND`;
+    if (channel === 'whatsapp') window.open(`https://wa.me/21647122656?text=${encodeURIComponent(message)}`, '_blank');
+    else window.location.href = `mailto:soleilpub24@gmail.com?subject=${encodeURIComponent('Demande de devis Soleil Pub')}&body=${encodeURIComponent(message)}`;
+  };
 
   // Handle RTL direction changes
   useEffect(() => {
@@ -56,6 +84,14 @@ export default function Home() {
     document.documentElement.lang = i18n.language;
   }, [i18n.language]);
 
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify({ '@context': 'https://schema.org', '@type': 'LocalBusiness', name: 'Soleil Pub', image: `${window.location.origin}/images/hero.png`, telephone: '+21647122656', email: 'soleilpub24@gmail.com', address: { '@type': 'PostalAddress', addressLocality: 'Tunis', addressCountry: 'TN' }, areaServed: 'Tunisie', priceRange: '$$' });
+    document.head.appendChild(script);
+    return () => script.remove();
+  }, []);
+
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground overflow-hidden">
       
@@ -63,6 +99,9 @@ export default function Home() {
       <div className="fixed top-6 right-6 z-50">
         <LanguageSwitcher />
       </div>
+      <button onClick={toggleTheme} aria-label={isDark ? 'Activer le mode clair' : 'Activer le mode sombre'} className="fixed top-6 left-6 z-50 h-10 w-10 rounded-full border border-primary/30 bg-background/80 text-primary backdrop-blur transition hover:bg-primary hover:text-primary-foreground">
+        {isDark ? <Sun className="mx-auto h-4 w-4" /> : <Moon className="mx-auto h-4 w-4" />}
+      </button>
 
       {/* Hero Section */}
       <section className="relative min-h-[100dvh] flex items-center justify-center pt-20 pb-32 overflow-hidden">
@@ -100,6 +139,9 @@ export default function Home() {
           </AnimatedSection>
 
           <AnimatedSection delay={0.6} className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto">
+            <Button size="lg" onClick={() => { setQuoteOpen(true); setQuoteStep(1); }} className="w-full sm:w-auto text-base h-14 px-8 bg-primary text-primary-foreground hover:bg-primary/90">
+              <Send className={`h-5 w-5 ${isArabic ? 'ml-2' : 'mr-2'}`} />{t('cta.instantQuote')}
+            </Button>
             <a href="tel:+21647122656" data-testid="link-hero-call">
               <Button size="lg" variant="outline" className="w-full sm:w-auto text-base h-14 px-8 border-primary/30 hover:bg-primary/10 text-primary">
                 <Phone className={`h-5 w-5 ${i18n.language === 'ar' ? 'ml-2' : 'mr-2'}`} />
@@ -116,6 +158,13 @@ export default function Home() {
         </AnimatedSection>
       </section>
 
+      {/* Proof points */}
+      <section className="border-y border-border bg-background px-6 py-12">
+        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 text-center sm:grid-cols-3">
+          {[['500+', 'stats.signs'], ['10', 'stats.experience'], ['240+', 'stats.clients']].map(([value, label]) => <div key={label}><p className="font-serif text-4xl text-primary">{value}</p><p className="mt-2 text-xs uppercase tracking-[0.18em] text-muted-foreground">{t(label)}</p></div>)}
+        </div>
+      </section>
+
       {/* Expertise Intro */}
       <section className="py-32 px-6 bg-background relative">
         <div className="container mx-auto max-w-4xl text-center">
@@ -129,6 +178,21 @@ export default function Home() {
                 : 'Nous croyons que votre image mérite ce qu\'il y a de mieux. C\'est pourquoi Soleil Pub allie savoir-faire artisanal et technologies de pointe pour créer des supports de communication qui ne passent jamais inaperçus.'}
             </p>
           </AnimatedSection>
+        </div>
+      </section>
+
+      {/* Portfolio */}
+      <section className="bg-background px-6 py-28">
+        <div className="mx-auto max-w-6xl">
+          <AnimatedSection className="mb-12 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+            <div><p className="mb-3 text-sm uppercase tracking-[0.2em] text-primary">Soleil Pub</p><h2 className="font-serif text-4xl md:text-5xl">{t('portfolio.title')}</h2></div>
+            <div className="flex flex-wrap gap-2">
+              {['all', 'signs', 'print', 'cards', 'stickers'].map((filter) => <button key={filter} onClick={() => setPortfolioFilter(filter)} className={`border px-4 py-2 text-xs uppercase tracking-widest transition ${portfolioFilter === filter ? 'border-primary bg-primary text-primary-foreground' : 'border-border text-muted-foreground hover:border-primary hover:text-primary'}`}>{t(`portfolio.${filter}`)}</button>)}
+            </div>
+          </AnimatedSection>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {filteredPortfolio.map((item) => <div key={item.title} className="group overflow-hidden border border-border bg-card"><div className="aspect-[4/5] overflow-hidden"><img src={item.image} alt={item.title} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" /></div><p className="p-5 font-serif text-lg">{item.title}</p></div>)}
+          </div>
         </div>
       </section>
 
@@ -175,11 +239,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials
+      {/* Testimonials */}
       <section className="py-32 px-6 bg-background border-t border-border">
         <div className="container mx-auto max-w-6xl">
           <AnimatedSection className="text-center mb-20">
-            <h2 className="font-serif text-4xl md:text-5xl mb-4">{i18n.language === 'ar' ? 'ثقة عملائنا' : 'La Confiance de nos Clients'}</h2>
+            <h2 className="font-serif text-4xl md:text-5xl mb-4">{t('testimonialsBlock.title')}</h2>
             <div className="w-24 h-[1px] bg-primary mx-auto mt-8" />
           </AnimatedSection>
 
@@ -201,7 +265,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section> */}
+      </section>
 
       {/* Contact / Footer */}
       <section className="py-32 px-6 bg-card border-t border-border relative overflow-hidden">
@@ -243,6 +307,20 @@ export default function Home() {
       </section>
 
       <WhatsAppButton />
+
+      {quoteOpen && <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="quote-title">
+        <div className="relative max-h-[92dvh] w-full max-w-2xl overflow-y-auto border border-primary/30 bg-background p-6 shadow-2xl md:p-10">
+          <button onClick={() => setQuoteOpen(false)} aria-label="Fermer" className="absolute right-5 top-5 text-muted-foreground transition hover:text-primary"><X className="h-5 w-5" /></button>
+          <div className="mb-8 pr-8"><p className="mb-2 text-xs uppercase tracking-[0.2em] text-primary">{t('quote.step')} {quoteStep} {t('quote.of')} 4</p><h2 id="quote-title" className="font-serif text-3xl md:text-4xl">{t('quote.title')}</h2><div className="mt-5 h-1 bg-muted"><div className="h-1 bg-primary transition-all" style={{ width: `${quoteStep * 25}%` }} /></div></div>
+
+          {quoteStep === 1 && <div><h3 className="mb-5 font-serif text-2xl">{t('quote.support')}</h3><div className="grid grid-cols-2 gap-3">{[['signs', 'services.luminousSigns.title'], ['print', 'services.digitalPrinting.title'], ['cards', 'services.invitations.title'], ['stickers', 'services.stickers.title']].map(([value, label]) => <button key={value} onClick={() => updateQuote('support', value)} className={`border p-5 text-left transition ${quoteData.support === value ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'}`}><span className="font-serif text-lg">{t(label)}</span>{quoteData.support === value && <Check className="mt-3 h-4 w-4" />}</button>)}</div></div>}
+          {quoteStep === 2 && <div><h3 className="mb-5 font-serif text-2xl">{t('quote.size')}</h3><div className="grid grid-cols-3 gap-3"><label className="text-sm text-muted-foreground">{t('quote.width')}<input value={quoteData.width} onChange={(event) => updateQuote('width', event.target.value)} type="number" className="mt-2 w-full border border-border bg-card p-3 text-foreground" /></label><label className="text-sm text-muted-foreground">{t('quote.height')}<input value={quoteData.height} onChange={(event) => updateQuote('height', event.target.value)} type="number" className="mt-2 w-full border border-border bg-card p-3 text-foreground" /></label><label className="text-sm text-muted-foreground">{t('quote.quantity')}<input value={quoteData.quantity} onChange={(event) => updateQuote('quantity', event.target.value)} type="number" min="1" className="mt-2 w-full border border-border bg-card p-3 text-foreground" /></label></div><div className="mt-8 border border-primary/30 bg-primary/5 p-5"><p className="text-sm uppercase tracking-widest text-primary">{t('quote.estimate')}</p><p className="mt-2 font-serif text-3xl">{estimate} - {estimate * 2} TND</p><p className="mt-2 text-sm text-muted-foreground">{t('quote.estimateNote')}</p></div></div>}
+          {quoteStep === 3 && <div><h3 className="mb-5 font-serif text-2xl">{t('quote.finish')}</h3><textarea value={quoteData.finish} onChange={(event) => updateQuote('finish', event.target.value)} placeholder={t('quote.finishPlaceholder')} className="min-h-32 w-full resize-none border border-border bg-card p-4 text-foreground outline-none focus:border-primary" /><label className="mt-5 flex cursor-pointer items-center gap-3 border border-dashed border-primary/40 p-4 text-sm text-muted-foreground hover:text-primary"><FileUp className="h-5 w-5 text-primary" />{quoteData.file || t('quote.file')}<input type="file" className="hidden" onChange={(event) => updateQuote('file', event.target.files?.[0]?.name || '')} /></label></div>}
+          {quoteStep === 4 && <div><h3 className="mb-5 font-serif text-2xl">{t('quote.contact')}</h3><div className="space-y-3"><input value={quoteData.name} onChange={(event) => updateQuote('name', event.target.value)} placeholder={t('quote.name')} className="w-full border border-border bg-card p-4 text-foreground" /><input value={quoteData.phone} onChange={(event) => updateQuote('phone', event.target.value)} placeholder={t('quote.phone')} type="tel" className="w-full border border-border bg-card p-4 text-foreground" /><input value={quoteData.email} onChange={(event) => updateQuote('email', event.target.value)} placeholder={t('quote.email')} type="email" className="w-full border border-border bg-card p-4 text-foreground" /></div><div className="mt-6 border border-primary/30 bg-primary/5 p-5"><p className="font-serif text-2xl">{estimate} - {estimate * 2} TND</p><p className="mt-1 text-sm text-muted-foreground">{t('quote.successText')}</p></div></div>}
+
+          <div className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6"><button onClick={() => quoteStep > 1 && setQuoteStep(quoteStep - 1)} disabled={quoteStep === 1} className="flex items-center gap-2 text-sm text-muted-foreground disabled:opacity-30"><ArrowLeft className="h-4 w-4" />{t('quote.back')}</button>{quoteStep < 4 ? <Button onClick={() => setQuoteStep(quoteStep + 1)}>{t('quote.next')}<ArrowRight className="ml-2 h-4 w-4" /></Button> : <div className="flex flex-wrap gap-2"><Button onClick={() => sendQuote('whatsapp')} className="bg-[#25D366] text-white hover:bg-[#1ebe5b]">WhatsApp</Button><Button onClick={() => sendQuote('email')} variant="outline"><Mail className="mr-2 h-4 w-4" />Email</Button></div>}</div>
+        </div>
+      </div>}
     </div>
   );
 }

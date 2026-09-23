@@ -60,6 +60,11 @@
   "cta": {
     "contactUs": "Nous contacter",
     "getQuote": "Demander un devis",
-    "learnMore": "En savoir plus"
-  }
+    "learnMore": "En savoir plus",
+    "instantQuote": "Obtenir un devis express"
+  },
+  "portfolio": { "title": "Des réalisations qui parlent", "all": "Tout", "signs": "Enseignes", "print": "Impression", "cards": "Cartes", "stickers": "Stickers" },
+  "quote": { "title": "Votre projet, en quelques étapes", "step": "Étape", "of": "sur", "support": "Quel support souhaitez-vous ?", "size": "Dimensions et quantité", "finish": "Finitions souhaitées", "contact": "Vos coordonnées", "next": "Continuer", "back": "Retour", "send": "Recevoir mon estimation", "name": "Nom et entreprise", "phone": "Téléphone", "email": "Email", "width": "Largeur (cm)", "height": "Hauteur (cm)", "quantity": "Quantité", "finishPlaceholder": "Décrivez vos finitions ou votre besoin...", "file": "Joindre un logo ou un fichier", "estimate": "Fourchette indicative", "estimateNote": "Un conseiller vous confirme le prix sous 24h.", "success": "Votre demande est prête", "successText": "Choisissez WhatsApp ou email pour l'envoyer à notre équipe." },
+  "stats": { "signs": "enseignes réalisées", "experience": "ans d'expérience", "clients": "clients accompagnés" },
+  "testimonialsBlock": { "title": "Ils nous confient leur image" }
 }
